@@ -1,0 +1,15 @@
+aws dynamodb create-table \
+    --table-name Message \
+    --endpoint-url http://localhost:8000 \
+    --attribute-definitions AttributeName=uuid,AttributeType=S AttributeName=handle,AttributeType=S \
+    --key-schema AttributeName=uuid,KeyType=HASH AttributeName=handle,KeyType=RANGE \
+    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
+    --tags Key=Owner,Value=Digitruc
+
+
+aws dynamodb put-item \
+    --table-name Message \
+    --endpoint-url http://localhost:8000 \
+    --item '{"uuid": {"S" : "0056a369-4618-43a4-ad88-e7c371bf5582"}, "handle": {"S" : "Andrew"}}' \
+    --return-consumed-capacity TOTAL \
+    --return-item-collection-metrics SIZE
